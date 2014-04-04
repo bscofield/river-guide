@@ -17,6 +17,7 @@ class Database
 
   def self.save(books)
     conn = connection
+
     books.each do |book|
       data = {
         title: book.title,
@@ -25,5 +26,7 @@ class Database
       }
       conn[:history].insert data
     end
+  rescue StandardError
+    []
   end
 end
