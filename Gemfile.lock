@@ -8,7 +8,9 @@ GEM
     mini_portile (0.5.3)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    pg (0.17.1)
     polyglot (0.3.4)
+    rake (10.2.2)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -19,3 +21,5 @@ PLATFORMS
 DEPENDENCIES
   mail
   nokogiri
+  pg
+  rake
