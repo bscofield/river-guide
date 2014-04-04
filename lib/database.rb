@@ -1,12 +1,17 @@
+require 'sequel'
 require 'pg'
 
 class Database
   def self.setup
     conn = connection
-    conn.exec("CREATE TABLE history (title VARCHAR NOT NULL PRIMARY KEY, price DOUBLE NOT NULL, recorded_at DATETIME NOT NULL)")
+    conn.create_table(:history) do
+      String :title, primary_key: true
+      Float :price
+      DateTime :recorded_at
+    end
   end
 
   def self.connection
-    PG.connect(ENV['DATABASE_URL'])
+    Sequel.connect(ENV['DATABASE_URL'])
   end
 end
