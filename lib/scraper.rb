@@ -3,12 +3,14 @@ require 'nokogiri'
 
 require_relative 'book'
 require_relative 'mailer'
+require_relative 'database'
 
 class Scraper
   URL = 'http://www.amazon.com/gp/registry/wishlist/_ID_?layout=compact&sort=universal-price'
 
   def self.deliver(ids)
     books = scrape(ids)
+    Database.save(books)
     Mailer.send(books.sort! {|x,y| x.price <=> y.price})
   end
 
