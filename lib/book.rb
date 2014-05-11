@@ -38,11 +38,15 @@ class Book
     }
   end
 
+  def display_price
+    sprintf("%0.02f", price)
+  end
+
   def to_s
-    [price, "<a href=\"#{url}\">#{title}</a>"].join(' / ')
+    [display_price, "<a href=\"#{url}\">#{title}</a>"].join(' / ')
   end
 
   def to_screen
-    [price, title].join(' / ')
+    [display_price, title].join(' / ')
   end
 end
