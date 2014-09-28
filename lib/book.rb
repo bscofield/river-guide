@@ -14,7 +14,7 @@ class Book
   end
 
   def title_link
-    @title_link ||= title_cell.css('a')
+    @title_link ||= title_cell.css('h5')
   end
 
   def url

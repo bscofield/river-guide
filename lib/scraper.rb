@@ -6,7 +6,8 @@ require_relative 'mailer'
 require_relative 'database'
 
 class Scraper
-  URL = 'http://www.amazon.com/gp/registry/wishlist/_ID_?layout=compact&sort=universal-price'
+  URL =
+  'http://www.amazon.com/gp/registry/wishlist/ref=cm_wl_act_print_o?ie=UTF8&disableNav=1&filter=all&id=_ID_&items-per-page=200&layout=standard-print&sort=universal-price'
 
   def self.deliver(ids)
     books = scrape(ids)
@@ -18,7 +19,7 @@ class Scraper
     ids.map do |id|
       puts "Retrieving list #{id}"
       doc  = Nokogiri::HTML(open(URL.sub(/_ID_/, id)))
-      rows = doc.css('table.g-compact-items tr')
+      rows = doc.css('table.g-print-items tr')
       rows.shift
       rows.map {|r| Book.new(r)}
     end.flatten
