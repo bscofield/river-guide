@@ -19,6 +19,8 @@ class Book
 
   def url
     'https://www.amazon.com' + title_link.attribute('href').text.strip
+  rescue
+    ''
   end
 
   def title
