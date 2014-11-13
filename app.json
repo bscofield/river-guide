@@ -13,6 +13,9 @@
       "required": true
     }
   },
+  "scripts": {
+    "postdeploy": "bundle exec rake create_db"
+  }
   "addons": [
     "mailgun:starter",
     "scheduler:standard"
