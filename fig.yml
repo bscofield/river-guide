@@ -1,7 +1,0 @@
-web:
-  build: .
-  command: bundle exec rake deliver
-  volumes:
-    - .:/river-guide
-  environment:
-    IDS: "3FJJU9UTWMXFA 2VCE5LLXXPFR8 3IK6NISH9NR2P 5XXEP12UCCPG"
