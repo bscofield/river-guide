@@ -5,9 +5,9 @@ class Mailer
     set_defaults
     now = Time.now.strftime('%-d %B')
 
-    message = '<strong>Price drops</strong>'+
+    message = '<strong>PRICE DROPS</strong><br>'+
               drops.map(&:to_screen).join('<br>') +
-              '<br><br><strong>All others</strong>' +
+              '<br><br><strong>ALL OTHERS</strong><br>' +
               books.map(&:to_screen).join('<br>')
 
     Mail.deliver do
