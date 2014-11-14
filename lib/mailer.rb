@@ -1,9 +1,14 @@
 require 'mail'
 
 class Mailer
-  def self.send(books)
+  def self.send(drops, books)
     set_defaults
     now = Time.now.strftime('%-d %B')
+
+    message = '<strong>Price drops</strong>'+
+              drops.map(&:to_screen).join('<br>') +
+              '<br><br><strong>All others</strong>' +
+              books.map(&:to_screen).join('<br>')
 
     Mail.deliver do
       to        ENV['RECIPIENT']
@@ -12,10 +17,9 @@ class Mailer
 
       html_part do
         content_type 'text/html; charset=UTF-8'
-        body          books.map(&:to_s).join('<br>')
+        body          message
       end
     end
-
   end
 
   def self.set_defaults

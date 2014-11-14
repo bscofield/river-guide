@@ -12,7 +12,7 @@ class Database
   end
 
   def self.connection
-    Sequel.connect(ENV['DATABASE_URL'])
+    @connection ||= Sequel.connect(ENV['DATABASE_URL'])
   end
 
   def self.save(books)
@@ -28,5 +28,14 @@ class Database
     end
   rescue StandardError
     []
+  end
+
+  def self.find_drops(books)
+    books.each do |book|
+      data = connection['SELECT MAX(price) AS max FROM history WHERE title = ?', book.title]
+      book.max = data.all.first[:max]
+    end
+
+    books.select {|book| book.max.to_f > book.price.to_f}
   end
 end

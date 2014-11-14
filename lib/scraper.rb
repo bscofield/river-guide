@@ -11,8 +11,12 @@ class Scraper
 
   def self.deliver(ids)
     books = scrape(ids)
+
+    sorted_drops = Database.find_drops(books).sort! {|x,y| x.price <=> y.price}
+    sorted_books = (books - sorted_drops).sort! {|x,y| x.price <=> y.price}
+
     Database.save(books)
-    Mailer.send(books.sort! {|x,y| x.price <=> y.price})
+    Mailer.send(sorted_drops, sorted_books)
   end
 
   def self.scrape(ids)

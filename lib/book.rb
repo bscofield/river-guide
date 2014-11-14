@@ -4,6 +4,7 @@ require_relative 'database'
 
 class Book
   attr_reader :row
+  attr_accessor :max
 
   def initialize(row)
     @row = row
@@ -41,7 +42,12 @@ class Book
   end
 
   def display_price
-    sprintf("%0.02f", price)
+    if max.to_f > price.to_f
+      diff = 100 * ((max.to_f - price.to_f) / max.to_f)
+      "#{sprintf("%0.02f", price)} (#{sprintf("%0.02f", diff)}%)"
+    else
+      sprintf("%0.02f", price)
+    end
   end
 
   def to_s

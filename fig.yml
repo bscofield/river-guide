@@ -1,5 +1,6 @@
 web:
   build: .
+  command: bundle exec rake deliver
   volumes:
     - .:/river-guide
   environment:
