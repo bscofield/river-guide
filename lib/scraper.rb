@@ -2,8 +2,8 @@ require 'open-uri'
 require 'nokogiri'
 
 require_relative 'book'
+require_relative 'ar_book'
 require_relative 'mailer'
-require_relative 'database'
 
 class Scraper
   URL =
@@ -12,11 +12,8 @@ class Scraper
   def self.deliver(ids)
     books = scrape(ids)
 
-    sorted_drops = Database.find_drops(books).sort! {|x,y| x.price <=> y.price}
-    sorted_books = (books - sorted_drops).sort! {|x,y| x.price <=> y.price}
-
     Database.save(books)
-    Mailer.send(sorted_drops, sorted_books)
+    Mailer.send(ArBook.current(Time.now).drops.sorted, ArBook.current(Time.now).undrops.sorted)
   end
 
   def self.scrape(ids)
@@ -25,7 +22,7 @@ class Scraper
       doc  = Nokogiri::HTML(open(URL.sub(/_ID_/, id)))
       rows = doc.css('table.g-print-items tr')
       rows.shift
-      rows.map {|r| Book.new(r)}
+      rows.map { |r| ArBook.load(Book.new(r)) }
     end.flatten
   end
 end

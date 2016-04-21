@@ -1,0 +1,16 @@
+db:
+  image: postgres
+  ports:
+    - "5432"
+web:
+  build: .
+  command: bundle exec rake scrape
+  volumes:
+    - .:/app
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  environment:
+    DATABASE_URL: postgres://postgres:@db:5432/ar_history
+    IDS: 3FJJU9UTWMXFA 2VCE5LLXXPFR8 3IK6NISH9NR2P 5XXEP12UCCPG
