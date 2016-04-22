@@ -1,14 +1,18 @@
 require 'mail'
 
 class Mailer
-  def self.send(drops, books)
+  def self.send(new_drops, drops, books)
     set_defaults
     now = Time.now.strftime('%-d %B')
 
-    message = '<strong>PRICE DROPS</strong><br>'+
-              drops.map(&:to_screen).join('<br>') +
-              '<br><br><strong>ALL OTHERS</strong><br>' +
-              books.map(&:to_screen).join('<br>')
+    message = ''
+
+    message += '<strong>PRICE DROPS</strong><br>'+
+                new_drops.map(&:to_screen).join('<br>') + '<br><br>'
+    message += '<strong>DISCOUNTED</strong><br>' +
+                drops.map(&:to_screen).join('<br>') + '<br><br>'
+    message += '<strong>ALL OTHERS</strong><br>' +
+                books.map(&:to_screen).join('<br>')
 
     Mail.deliver do
       to        ENV['RECIPIENT']

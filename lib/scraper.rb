@@ -10,10 +10,13 @@ class Scraper
   'http://www.amazon.com/gp/registry/wishlist/ref=cm_wl_act_print_o?ie=UTF8&disableNav=1&filter=all&id=_ID_&items-per-page=200&layout=standard-print&sort=universal-price'
 
   def self.deliver(ids)
-    books = scrape(ids)
+    scrape(ids)
 
-    Database.save(books)
-    Mailer.send(ArBook.current(Time.now).drops.sorted, ArBook.current(Time.now).undrops.sorted)
+    all_books = ArBook.current(Time.now).sorted
+    new_drops = ArBook.current(Time.now).drops
+    old_drops = ArBook.current(Time.now).old_drops
+
+    Mailer.send(new_drops, old_drops, (all_books - old_drops - new_drops))
   end
 
   def self.scrape(ids)

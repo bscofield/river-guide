@@ -4,6 +4,7 @@ class ArBook < ActiveRecord::Base
   attr_accessor :book
 
   scope :drops, -> { where('last_price > current_price') }
+  scope :old_drops, -> { where('max_price > current_price AND last_price = current_price') }
   scope :undrops, -> { where('last_price <= current_price') }
   scope :sorted, -> { order('current_price ASC') }
   scope :current, ->(now) { where('last_seen > ?', now - 1.days) }
