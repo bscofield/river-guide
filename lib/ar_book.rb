@@ -9,6 +9,10 @@ class ArBook < ActiveRecord::Base
   scope :sorted, -> { order('current_price ASC') }
   scope :current, ->(now) { where('last_seen > ?', now - 1.days) }
 
+  def self.clear_unless(books)
+    self.where.not(id: books.map(&:id)).delete_all
+  end
+
   def self.load(book)
     record = find_or_initialize_by(title: book.title)
 
