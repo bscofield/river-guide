@@ -15,8 +15,8 @@ class Scraper
     ArBook.clear_unless(books)
 
     all_books = ArBook.current(Time.now).sorted
-    new_drops = ArBook.current(Time.now).drops
-    old_drops = ArBook.current(Time.now).old_drops
+    new_drops = ArBook.current(Time.now).drops.sorted
+    old_drops = ArBook.current(Time.now).old_drops.sorted
 
     Mailer.send(new_drops, old_drops, (all_books - old_drops - new_drops))
   end
