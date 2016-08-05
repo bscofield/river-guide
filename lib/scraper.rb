@@ -7,7 +7,7 @@ require_relative 'mailer'
 
 class Scraper
   URL =
-  'http://www.amazon.com/gp/registry/wishlist/ref=cm_wl_act_print_o?ie=UTF8&disableNav=1&filter=all&id=_ID_&items-per-page=200&layout=standard-print&sort=universal-price'
+  'https://www.amazon.com/gp/registry/wishlist/ref=cm_wl_act_print_o?ie=UTF8&disableNav=1&filter=all&id=_ID_&items-per-page=200&layout=standard-print&sort=universal-price'
 
   def self.deliver(ids)
     books = scrape(ids)
