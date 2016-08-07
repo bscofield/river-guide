@@ -30,7 +30,7 @@ class Scraper
       rows = doc.css('table.g-print-items tr')
       rows.shift
       rows.map { |r| ArBook.load(Book.new(r)) }
-      sleep 10
+      sleep rand(15)+15
     end.flatten
   end
 end
