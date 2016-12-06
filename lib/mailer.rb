@@ -16,7 +16,7 @@ class Mailer
 
     Mail.deliver do
       to        ENV['RECIPIENT']
-      from     'river-guide@example.com'
+      from     "river-guide@#{ENV['EMAIL_DOMAIN']}"
       subject  'River Guide for ' + now
 
       html_part do
@@ -29,7 +29,7 @@ class Mailer
   def self.set_defaults
     Mail.defaults do
       delivery_method :smtp, {
-        domain:         'example.com',
+        domain:          ENV['EMAIL_DOMAIN'],
         port:            ENV['MAILGUN_SMTP_PORT'],
         address:         ENV['MAILGUN_SMTP_SERVER'],
         user_name:       ENV['MAILGUN_SMTP_LOGIN'],
