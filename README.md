@@ -1,6 +1,5 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/bscofield/river-guide)
 
-
 # River Guide
 
 Scrape a set of Amazon wishlists and email their contents, ordered cheapest to most expensive.
