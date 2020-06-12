@@ -24,7 +24,7 @@ GEM
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     pg (0.21.0)
-    rake (12.3.0)
+    rake (12.3.3)
     sequel (5.2.0)
     thread_safe (0.3.6)
     tzinfo (1.2.4)
